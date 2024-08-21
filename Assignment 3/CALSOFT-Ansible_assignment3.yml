@@ -1,0 +1,21 @@
+
+
+--
+- name: Copying files from one server to another
+  hosts: all
+
+  tasks:
+  - name: Copy files
+    copy:
+      src: /var/lib/jenkins/workspace/CALSOFT-Ansible_assignment3/hello1.py
+      dest: /var/lib/jenkins/
+      mode: '777'
+
+  - name: Running the python file of priyam
+    command: python3 /var/lib/jenkins/hello1.py
+    register: priyam_out
+
+  - name: Displaying output
+    debug: 
+      var: priyam_out.stdout_lines
+
