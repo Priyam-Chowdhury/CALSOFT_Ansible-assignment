@@ -1,0 +1,20 @@
+---
+- name: Copying files from one server to another
+  hosts: all
+
+  tasks:
+  - name: Copy files
+    copy:
+      src: /home/priyam/Desktop/playbooks/hello1.py
+      dest: /home/priyam/Desktop/ansible_files_from_ubuntu/
+      mode: '664'
+      
+  - name: Running the python file of priyam
+    command: python3 /home/priyam/Desktop/ansible_files_from_ubuntu/hello.py
+    register: priyam_out
+
+  - name: Displaying output
+    debug: 
+      var: priyam_out.stdout_lines
+      
+
