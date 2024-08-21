@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    environment {
+        ANSIBLE_INVENTORY = '/var/lib/jenkins/workspace/CALSOFT-Ansible_assignment3/hosts'  
+        ANSIBLE_PLAYBOOK = '/var/lib/jenkins/workspace/CALSOFT-Ansible_assignment3/Ansible_assignment1.yml' 
+        //ANSIBLE_SSH_ARGS = '-o StrictHostKeyChecking=no' // Disable host key checking
+    }
+
+    stages {
+        
+        stage('Run Ansible Playbook') {
+            steps {
+                script {
+                    
+                    sh "ansible-playbook Ansible_assignment1.yml"
+                    sh 'pwd'
+                    //sh "ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_PLAYBOOK} --ssh-common-args '${ANSIBLE_SSH_ARGS}'"
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Playbook executed successfully!'
+        }
+        failure {
+            echo 'Playbook execution failed.'
+        }
+    }
+}
